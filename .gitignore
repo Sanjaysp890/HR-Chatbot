@@ -1,0 +1,28 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# IDE / editor files
+.vscode/
+.idea/
+.DS_Store
+
+# Logs
+*.log
+
+# Docker-specific
+docker-compose.override.yml
+
+# Data & indexes (generated, not source code)
+data/
+vectorstore/
+
+# Environment & secrets
+.env

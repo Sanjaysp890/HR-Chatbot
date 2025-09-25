@@ -1,0 +1,34 @@
+# Git / VCS
+.git
+.gitignore
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# Node / frontend cache
+node_modules/
+build/
+dist/
+
+# Local data and indexes (not needed inside image)
+data/
+vectorstore/
+
+# Env and config
+.env
+.env.*
+*.log
+
+# OS / IDE files
+.DS_Store
+Thumbs.db
+.vscode
+.idea

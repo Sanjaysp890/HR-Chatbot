@@ -1,0 +1,12 @@
+# Install CPU-only torch separately in Dockerfile (see snippet)
+
+fastapi
+uvicorn
+streamlit
+python-docx
+PyPDF2
+openai
+tqdm
+rank-bm25
+python-dotenv
+groq

@@ -1,0 +1,49 @@
+services:
+  backend:
+    image: sanjay1233/rubixe-backend:latest
+    container_name: rag-backend
+    # Expose backend API on localhost:8000
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - GROQ_MODEL=${GROQ_MODEL}
+      - DOCS_DIR=/app/docs
+    volumes:
+      - ./data:/app/data         # persist input data
+      - ./vectorstore:/app/vectorstore
+      - ./docs:/app/docs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl --fail http://127.0.0.1:8000/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  frontend:
+    image: sanjay1233/rubixe-frontend:latest
+    container_name: rag-frontend
+    # Expose Streamlit UI on localhost:8501
+    ports:
+      - "8501:8501"
+    env_file:
+      - .env
+    environment:
+      - BACKEND_URL=http://backend:8000/query
+      - DOCS_DIR=/app/docs
+    depends_on:
+      - backend
+    volumes:
+      - ./docs:/app/docs
+      - ./data:/app/data
+      - ./vectorstore:/app/vectorstore
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl --fail http://127.0.0.1:8501/ || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
