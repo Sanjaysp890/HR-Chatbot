@@ -69,7 +69,7 @@ cd HR-Chatbot
 
 ### 2. Create environment (Conda)
 ```bash
-conda create -n ragchat python=3.11 -y
+conda create -n ragchat python=3.10 -y
 conda activate ragchat
 ```
 
