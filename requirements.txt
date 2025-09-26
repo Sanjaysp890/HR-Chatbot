@@ -9,4 +9,6 @@ openai
 tqdm
 rank-bm25
 python-dotenv
+sentence-transformers==5.1.1
+faiss-cpu==1.12.0
 groq
