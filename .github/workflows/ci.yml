@@ -1,7 +1,9 @@
-name: CI
+﻿name: CI
 on:
-  push: { branches: [ main, develop ] }
-  pull_request: { branches: [ main ] }
+  push:
+    branches: [ mlops ]
+  pull_request:
+    branches: [ mlops ]
 
 jobs:
   test:
@@ -9,11 +11,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
-        with: { python-version: "3.10" }
+        with:
+          python-version: "3.10"
       - name: Install deps
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt || true
           pip install pytest httpx pytest-asyncio uvicorn requests
       - name: Run tests
-        run: pytest -q || true   # ok until you add more tests
+        run: pytest -q || true

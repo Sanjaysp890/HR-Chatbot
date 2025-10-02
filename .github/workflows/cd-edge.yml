@@ -1,12 +1,13 @@
-name: CD - Release
-on: { push: { tags: [ "v*.*.*" ] } }
+﻿name: CD - Edge
+on:
+  push:
+    branches: [ mlops ]
 
 env:
   IMAGE_NAME: sanjay1233/rubixe
 
-
 jobs:
-  release:
+  build-and-push:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -15,16 +16,11 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Version
-        id: v
-        run: echo "ver=${GITHUB_REF_NAME#v}" >> $GITHUB_OUTPUT
       - uses: docker/build-push-action@v6
         with:
           context: .
           file: ./Dockerfile
           push: true
-          tags: |
-            ${{ env.IMAGE_NAME }}:latest
-            ${{ env.IMAGE_NAME }}:${{ steps.v.outputs.ver }}
+          tags: ${{ env.IMAGE_NAME }}:edge
           cache-from: type=gha
           cache-to: type=gha,mode=max
