@@ -38,23 +38,7 @@ if send and question.strip():
     except Exception as e:
         st.error(f"Could not reach backend: {e}")
 
-# Collapsible PDF upload section
-with st.expander("(Optional) Upload a PDF to index locally (developer only)"):
-    uploaded_file = st.file_uploader(
-        "Upload PDF", type=["pdf"], accept_multiple_files=False
-    )
-    if uploaded_file:
-        st.info(f"Uploaded: {uploaded_file.name}")
-    if st.button("Ingest uploaded docs (run ingest.py)"):
-        if uploaded_file:
-            # Save uploaded file to data/ folder for ingest.py
-            save_path = os.path.join("data", uploaded_file.name)
-            os.makedirs("data", exist_ok=True)
-            with open(save_path, "wb") as f:
-                f.write(uploaded_file.getbuffer())
-            st.success(f"Saved {uploaded_file.name} to {save_path}. Run ingest.py to index it.")
-        else:
-            st.warning("Please upload a PDF first.")
+
 
 # Display chat history
 for chat in st.session_state.history[::-1]:
